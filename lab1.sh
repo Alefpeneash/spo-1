@@ -4,6 +4,7 @@ source removedir.sh
 source changedir.sh 
 source createdir.sh
 
+path="$HOME/learn/spo/error_log"
 
 while true
 do

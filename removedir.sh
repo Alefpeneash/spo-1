@@ -4,24 +4,32 @@ function removedir {
 	echo 'Please enter the name of directory which you want to delete: '
     
     emp=""
+    key="-"
 
 	read nameofrd    
     
     if [[ $nameofrd == $emp ]]; then
         echo 'Empty input'
-        rmdir 2>>error_log
+        rmdir 2>>"$path"
         return 0
     fi
     
+    
+   
     if [ ! -d "$nameofrd" ]; then
         echo 'No such directory'
-        rmdir -p $nameofrd 2>>error_log
+        rmdir -p $nameofrd 2>>"$path"
         return 0
     fi
 
-    if [ ! -r "$nameofrd" ]; then
+    if [ ! -w "$nameofrd" ]; then
         echo 'You have not permission'
-        rmdir -p $nameofrd 2>>error_log
+        return 0
+    fi
+
+    if [ "$(ls -A $nameofrd)" ]; then
+        echo 'Not empty'
+        rmdir -p $nameofrd 2>>"$path"
         return 0
     fi
     
@@ -30,6 +38,11 @@ function removedir {
     read cond
     
     if  [ $cond = "y" ] || [ $cond = "yes" ]; then    
+        if [[ $nameofrd == $key* ]]; then
+            rmdir -p -- $nameofrd
+            echo 'OK'
+            return 0
+        fi
         rmdir -p $nameofrd
         echo 'OK'
         return 0 
