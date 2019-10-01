@@ -4,10 +4,22 @@
 
 function createdir {
 	echo 'Please enter the name of directory which you want to create: '
-	read nameofcd
+	read -r nameofcd
+   # nameofcd="" 
+    
+   # for var in $rn
+   # do
+   #     nameofcd+=$var\ 
+   # done
 
     emp=""
     key="-"
+
+    if [[ $nameofcd == */* ]]; then
+        echo 'You can`t use "/" symbol in directory name'
+        return 0
+    fi
+    
     
     if [[ $nameofcd == $emp ]]; then
         echo 'Empty input'
@@ -27,7 +39,7 @@ function createdir {
         return 0
     fi
     
-	mkdir $nameofcd
+	mkdir -p "$nameofcd"
     echo 'OK'
     return 0
 }

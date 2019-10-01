@@ -6,9 +6,9 @@ function removedir {
     emp=""
     key="-"
 
-	read nameofrd    
+	read -r nameofrd    
     
-    if [[ $nameofrd == $emp ]]; then
+    if [[ -z $nameofrd ]]; then
         echo 'Empty input'
         rmdir 2>>"$path"
         return 0
@@ -16,7 +16,7 @@ function removedir {
     
     
    
-    if [ ! -d "$nameofrd" ]; then
+    if [[ ! -d $nameofrd ]]; then
         echo 'No such directory'
         rmdir -p $nameofrd 2>>"$path"
         return 0
@@ -26,13 +26,7 @@ function removedir {
         echo 'You have not permission'
         return 0
     fi
-
-    if [ "$(ls -A $nameofrd)" ]; then
-        echo 'Not empty'
-        rmdir -p $nameofrd 2>>"$path"
-        return 0
-    fi
-    
+ 
     echo "Are you sure that you want to remove $nameofrd (y/yes - if yes)"
     
     read cond
@@ -43,7 +37,7 @@ function removedir {
             echo 'OK'
             return 0
         fi
-        rmdir -p $nameofrd
+        rmdir -p "$nameofrd"
         echo 'OK'
         return 0 
     else

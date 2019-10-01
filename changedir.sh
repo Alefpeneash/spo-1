@@ -2,17 +2,11 @@
 
 function changedir {
 	echo 'Please enter the name of directory you want to change to: '
-	read nameofd
+	read -r nameofd
 
     emp=""
-    tild="~"
     key="-"   
  
-    if [[ $nameofd == $tild* ]]; then
-        cd  "$HOME/$(echo $nameofd | cut -c 2-)"
-        echo 'OK'
-        return 0
-    fi
     
     if [[ $nameofd == $key* ]]; then
         cd "$(pwd)/$nameofd"
@@ -38,7 +32,7 @@ function changedir {
         return 0
     fi
  
-    cd $nameofd
+    cd "$nameofd"
     echo 'OK'
     return 0
 }

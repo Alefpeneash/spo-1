@@ -20,8 +20,8 @@ Select menu option:
 	read menu
 	case $menu in
 		1)
-		pwd
-		;;
+		pwd | awk -F/ '{print $NF}'
+        ;;
 		2)
 		changedir
 		;;
